@@ -10,11 +10,13 @@ import cors from 'cors'
 const app = express()
 const PORT = 4010
 
-mongoose.connect(
-  process.env.DB_CONNECT,
-  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false },
-  () => console.log('connected to db!')
-)
+mongoose
+  .connect(process.env.DB_CONNECT, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Mongo connected'))
+  .catch(error => console.log(error))
 
 app.use(cors())
 app.use(express.json())

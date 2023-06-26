@@ -1,0 +1,5 @@
+get {{url}}
+###
+get {{url}}/customer
+###
+get {{url}}/customer/6496c82a281a381127ebdbac

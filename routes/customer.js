@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:custId', async (req, res) => {
-  return await Customer.findById(req.params.custId)
+  await Customer.findById(req.params.custId)
     .then(cust => res.json(cust))
     .catch(err => res.send(err))
 })

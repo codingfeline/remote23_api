@@ -1,22 +1,13 @@
 import express from 'express'
-import mongoose from 'mongoose'
-import dotenv from 'dotenv'
-dotenv.config()
+import db from './connectDB.js'
 
 import customerRoute from './routes/customer.js'
-
 import cors from 'cors'
 
 const app = express()
 const PORT = 4010
 
-mongoose
-  .connect(process.env.DB_CONNECT, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('Mongo connected'))
-  .catch(error => console.log(error))
+db()
 
 app.use(cors())
 app.use(express.json())

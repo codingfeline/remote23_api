@@ -8,4 +8,6 @@ const customerSchema = new mongoose.Schema({
   },
 })
 
-export default mongoose.model('Customer', customerSchema)
+// NAMED EXPORT
+// export const Customer = mongoose.model('customer', customerSchema)
+export default mongoose.model('customer', customerSchema)

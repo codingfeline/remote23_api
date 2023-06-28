@@ -1,9 +1,5 @@
-import express from 'express'
-import db from './connectDB.js'
-import cookieParser from 'cookie-parser'
-import customerRoute from './routes/customer.js'
-import cookieRoutes from './routes/cookie.js'
-import cors from 'cors'
+// prettier-ignore
+import { express, db, customerRoute,  userRoute,sessionRoute, session, cors, passport, passportUtil } from './imports.js'
 
 const app = express()
 const PORT = 4010
@@ -12,9 +8,14 @@ db()
 
 app.use(cors())
 app.use(express.json())
-app.use(cookieParser('mysecret'))
 app.use('/customer', customerRoute)
-app.use('/cookie', cookieRoutes)
+app.use(session({ secret: 'secretforsession' }))
+app.use(passport.initialize())
+app.use(passport.session())
+passportUtil()
+
+app.use('/user', userRoute)
+app.use('/session', sessionRoute)
 
 app.get('/', (req, res) => {
   res.send('hello')

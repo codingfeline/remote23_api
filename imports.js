@@ -1,3 +1,6 @@
+export { default as catchAsync } from './utils/catchAsync.js'
+export { default as isLoggedIn } from './middleware/index.js'
+
 export { default as express } from 'express'
 export { default as db } from './connectDB.js'
 export { default as customerRoute } from './routes/customer.js'

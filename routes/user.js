@@ -1,5 +1,4 @@
-import { express, User } from '../imports.js'
-import catchAsync from '../utils/catchAsync.js'
+import { express, User, passport, isLoggedIn, catchAsync } from '../imports.js'
 
 const router = express.Router()
 
@@ -26,5 +25,27 @@ router.post(
     }
   })
 )
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    failureFlash: false,
+  }),
+  (req, res) => {
+    console.log(req.user.username)
+    res.json({ result: 'ok' })
+  }
+)
+
+router.post('/logout', (req, res, next) => {
+  req.logout(err => {
+    if (err) return next(err)
+    res.send('loggedout')
+  })
+})
+
+router.get('/secret', isLoggedIn, (req, res) => {
+  res.send('this is a secret route')
+})
 
 export default router

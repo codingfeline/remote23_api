@@ -14,12 +14,15 @@ router.get('/fakeUser', async (req, res) => {
 
 router.post(
   '/register',
-  catchAsync(async (req, res) => {
+  catchAsync(async (req, res, next) => {
     try {
       const { email, username, password } = req.body
       const user = new User({ email, username })
       const registeredUser = await User.register(user, password)
-      res.send(registeredUser)
+      req.login(registeredUser, err => {
+        if (err) return next(err)
+        res.send(registeredUser)
+      })
     } catch (e) {
       res.send(e.message)
     }

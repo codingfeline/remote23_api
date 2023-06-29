@@ -8,12 +8,12 @@ db()
 
 app.use(cors())
 app.use(express.json())
-app.use('/customer', customerRoute)
-app.use(session({ secret: 'secretforsession' }))
+app.use(session({ secret: 'secretforsession', resave: false, saveUninitialized: true }))
 app.use(passport.initialize())
 app.use(passport.session())
 passportUtil()
 
+app.use('/customer', customerRoute)
 app.use('/user', userRoute)
 app.use('/session', sessionRoute)
 

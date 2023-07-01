@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import passportLocalMongoose from 'passport-local-mongoose'
-import { Schema } from 'mongoose'
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -13,6 +12,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'email is needed'],
     minlength: [4, 'email needs at least 4 characters'],
+    unique: true,
   },
 })
 

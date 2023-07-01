@@ -1,4 +1,4 @@
-import { express, User, passport, isLoggedIn, catchAsync } from '../imports.js'
+import { express, passport, isLoggedIn, helpers } from '../imports.js'
 
 const router = express.Router()
 
@@ -6,28 +6,17 @@ router.get('/register', (req, res) => {
   res.send('register user router')
 })
 
-router.get('/fakeUser', async (req, res) => {
-  const user = new User({ email: 'naz@nextfeline.uk', username: 'nazs' })
-  const newUser = await User.register(user, 'password')
-  res.send(newUser)
+router.get('/secret', isLoggedIn, (req, res) => {
+  res.send('you are viewing a secret route')
 })
 
-router.post(
-  '/register',
-  catchAsync(async (req, res, next) => {
-    try {
-      const { email, username, password } = req.body
-      const user = new User({ email, username })
-      const registeredUser = await User.register(user, password)
-      req.login(registeredUser, err => {
-        if (err) return next(err)
-        res.send(registeredUser)
-      })
-    } catch (e) {
-      res.send(e.message)
-    }
-  })
-)
+router.get('/', helpers.getUsers)
+router.get('/test', helpers.getTest)
+
+router.get('/fakeUser', helpers.fakeUser)
+router.get('/:userId', helpers.getOne)
+
+router.post('/register', helpers.register)
 
 router.post(
   '/login',
@@ -47,8 +36,10 @@ router.post('/logout', (req, res, next) => {
   })
 })
 
-router.get('/secret', isLoggedIn, (req, res) => {
-  res.send('this is a secret route')
-})
-
 export default router
+
+/* 
+below error refers to the route /secret not placed above /:userId
+
+message": "Cast to ObjectId failed for value \"secret\" (type string) at path \"_id\" for model \"user\""
+*/

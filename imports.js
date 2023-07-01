@@ -1,5 +1,6 @@
 export { default as catchAsync } from './utils/catchAsync.js'
 export { default as isLoggedIn } from './middleware/index.js'
+export { default as helpers } from './controller/user.js'
 
 export { default as express } from 'express'
 export { default as db } from './connectDB.js'

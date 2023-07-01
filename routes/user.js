@@ -10,7 +10,7 @@ router.get('/secret', isLoggedIn, (req, res) => {
   res.send('you are viewing a secret route')
 })
 
-router.get('/', helpers.getUsers)
+router.route('/').get(helpers.getUsers).post(helpers.postTest)
 router.get('/test', helpers.getTest)
 
 router.get('/fakeUser', helpers.fakeUser)
@@ -25,7 +25,7 @@ router.post(
   }),
   (req, res) => {
     console.log(req.user.username)
-    res.json({ result: 'ok' })
+    res.json({ result: 'ok', user: req.user.username })
   }
 )
 

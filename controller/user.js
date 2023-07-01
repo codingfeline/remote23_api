@@ -6,6 +6,9 @@ const helperFunc = {
       res.json(user)
     })
   },
+  postTest: (req, res) => {
+    res.send(req.body)
+  },
 
   getTest: res => {
     res.send('testing only')
